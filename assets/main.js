@@ -1,14 +1,8 @@
 const API = 'https://rickandmortyapi.com/api/character';
+const API2 = 'https://rickandmortyapi.com/api/character/183';
 
 const content = null || document.getElementById('content');
-
-const options = {
-	method: 'GET',
-	headers: {
-    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
-		'X-RapidAPI-Key': '170e8c5817mshe51d1858408dbf1p109bd6jsn9756bbd1388a'
-	}
-};
+const imgProfile = null || document.getElementById('img-profile');
 
 async function fetchData(urlApi) {
   const response = await fetch(urlApi);
@@ -35,10 +29,21 @@ async function fetchData(urlApi) {
           </h3>
         </div>
       </div>
-    `).slice(0,4).join('')}
+    `).slice(0,8).join('')}
     `;
     content.innerHTML = view;
   } catch(error) {
     console.error(error);
+  }
+})();
+
+(async () => {
+  try {
+    const profile = await fetchData(API2);
+    console.log('profile', profile.image);
+    let viewImageProfile = `${profile.image}`
+    imgProfile.innerHTML = `<img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="${viewImageProfile}" alt="">`
+  } catch {
+    console.error('error');
   }
 })();
